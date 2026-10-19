@@ -47,8 +47,6 @@ void print_bit_doubles(double x)
 	
 }
 
-using namespace std;
-
 int main()
 {
 	double res_1;
@@ -68,13 +66,14 @@ int main()
 	int i_1 = 1;
 	while(true)
 	{
-		cout << "Последовательность: 1 + 1/(10^n):" << " Шаг: " << i_1 << endl;
+		//cout << "Последовательность: 1 + 1/(10^n):" << " Шаг: " << i_1 << endl;
 		res_1 = 1.0 + 1.0 / pow(10.0,i_1);
 		cout << "ORIGINAL NUMBER: " << setprecision(20) <<res_1 << endl;
 		print_bit_doubles(res_1);
 		if(res_1 == 1.0)
 		{
 			cout << "Stopped..." << endl;
+			cout << "n = " << i_1 << endl;
 			break;
 		}
 		cout << endl;
@@ -85,13 +84,14 @@ int main()
 	int i_2 = 1;
 	while(true)
 	{
-		cout << "Последовательность: 1 + 1/(2^k):" << " Шаг: " << i_2 << endl;
+		//cout << "Последовательность: 1 + 1/(2^k):" << " Шаг: " << i_2 << endl;
 		res_2 = 1.0 + 1.0 / pow(2.0,i_2);
 		cout << "ORIGINAL NUMBER: " << setprecision(20) << res_2 << endl;
 		print_bit_doubles(res_2);
 		if(res_2 == 1.0)
 		{
 			cout << "Stopped..." << endl;
+			cout << "k = " << i_2 << endl;
 			break;
 		}
 		cout << endl;
