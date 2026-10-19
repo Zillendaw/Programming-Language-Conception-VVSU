@@ -1,0 +1,82 @@
+# Текстовые файлы
+*.txt
+# Но не CMakeLists.txt, он нужен для сборки
+!CMakeLists.txt
+
+# Объектные файлы
+*.o
+*.obj
+*.ko
+*.elf
+
+# Предкомпилированные заголовки
+*.gch
+*.pch
+
+# Библиотеки
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.la
+*.lo
+
+# Исполняемые файлы
+*.exe
+*.out
+*.app
+a.out
+
+# Отладочная информация
+*.dSYM/
+*.pdb
+*.ilk
+*.idb
+*.su
+*.dwo
+
+# Файлы зависимостей
+*.d
+
+# Каталоги сборки
+build/
+Build/
+bin/
+obj/
+out/
+cmake-build-*/
+Debug/
+Release/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+compile_commands.json
+_deps/
+
+# Make / Autotools
+Makefile.in
+autom4te.cache/
+config.log
+config.status
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vs/
+*.user
+.cache/
+
+# Временные файлы системы
+.goutputstream-*
+.DS_Store
+Thumbs.db
+core
+core.*
