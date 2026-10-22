@@ -6,6 +6,17 @@
 
 using namespace std;
 
+double convert_from_binary_to_decimal(uint64_t sign, uint64_t exponenta, uint64_t mantissa)
+{
+	uint64_t bits = ((sign     & 0x1ULL)            << 63)
+                  | ((exponenta & 0x7FFULL)          << 52)
+                  |  (mantissa & 0xFFFFFFFFFFFFFULL);
+					
+	double result;
+	memcpy(&result, &bits, sizeof result);
+	return result;
+}
+
 void print_bit_doubles(double x)
 {
 	uint64_t bits;
@@ -25,29 +36,20 @@ void print_bit_doubles(double x)
 		}
 	}
 	
-	int sign = bits >> 63;
+	uint64_t sign = bits >> 63;
 	cout << "\nЗнак: " << sign << endl;
 	
-	int exponenta_memory = 0;
-	cout << "\nЭкспонента (в десятичной системе): ";
-	for (int i = 62; i >= 52; i--)
-	{
-		exponenta_memory *= 2;
-		exponenta_memory += (bits >> i) & 1;
-	}
-	cout << exponenta_memory;
+	uint64_t exponenta_memory = (bits >> 52) & 0x7FF;
+	cout << "\nЭкспонента: " << exponenta_memory;
 	cout << endl;
 	
-	uint64_t mantissa = 0;
-	cout << "\nМантисса (в десятичной системе): ";
-	for (int i = 51; i >= 0; i--)
-	{
-		mantissa *= 2;
-		mantissa += (bits >> i) & 1;
-	}
-	cout << mantissa;
+	uint64_t mantissa = bits & 0xFFFFFFFFFFFFFULL;
+	cout << "\nМантисса: " << mantissa;
 	cout << endl;
 	
+	double res = convert_from_binary_to_decimal(sign,exponenta_memory,mantissa);
+	
+	cout << "Результат после расчёта знака + экспонента + мантисса: " << res << endl;
 }
 
 int main()
@@ -56,14 +58,6 @@ int main()
 	double res_2;
 	
 	cout << endl;
-	
-	/*cout << "Bit operations 1:\n";
-	print_bit_doubles(res_1);
-	cout << endl;
-	
-	cout << "Bit operations 2:\n";
-	print_bit_doubles(res_2);
-	cout << endl;*/
 	
 	int i_1 = 1;
 	while(true)
