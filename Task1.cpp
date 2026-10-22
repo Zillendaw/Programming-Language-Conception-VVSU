@@ -8,17 +8,36 @@ using namespace std;
 
 double convert_from_binary_to_decimal(uint64_t sign, uint64_t exponenta, uint64_t mantissa)
 {
-	uint64_t bits = ((sign     & 0x1ULL)            << 63)
-                  | ((exponenta & 0x7FFULL)          << 52)
-                  |  (mantissa & 0xFFFFFFFFFFFFFULL);
-					
-	double result;
-	memcpy(&result, &bits, sizeof result);
+	double result = 0;
+	int plus_sign = 0;
+	int poryadok = 0;
+	double drob = 0;
+	double number_with_one = 0;
+	
+	if (sign == 0)
+	{
+		plus_sign = 1;
+	}
+	else
+	{
+		plus_sign = -1;
+	}
+	
+	poryadok = exponenta - 1023;
+	
+	drob = mantissa / pow(2,52);
+	
+	number_with_one = 1 + drob;
+	
+	result = plus_sign * number_with_one * pow(2,poryadok);
+
 	return result;
 }
 
 void print_bit_doubles(double x)
 {
+	cout << "Исходное число: " << x << endl;
+	
 	uint64_t bits;
 	
 	memcpy(&bits, &x, sizeof(bits));
@@ -35,6 +54,7 @@ void print_bit_doubles(double x)
 			cout << " ";
 		}
 	}
+	cout << endl;
 	
 	uint64_t sign = bits >> 63;
 	cout << "\nЗнак: " << sign << endl;
@@ -45,7 +65,7 @@ void print_bit_doubles(double x)
 	
 	uint64_t mantissa = bits & 0xFFFFFFFFFFFFFULL;
 	cout << "\nМантисса: " << mantissa;
-	cout << endl;
+	cout << endl << endl;
 	
 	double res = convert_from_binary_to_decimal(sign,exponenta_memory,mantissa);
 	
