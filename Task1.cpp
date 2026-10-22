@@ -8,7 +8,6 @@ using namespace std;
 
 void print_bit_doubles(double x)
 {
-	// Создаем 64 битные целые числа
 	uint64_t bits;
 	
 	memcpy(&bits, &x, sizeof(bits));
@@ -29,20 +28,24 @@ void print_bit_doubles(double x)
 	int sign = bits >> 63;
 	cout << "\nЗнак: " << sign << endl;
 	
-	cout << "\nЭкспонента: ";
+	int exponenta_memory = 0;
+	cout << "\nЭкспонента (в десятичной системе): ";
 	for (int i = 62; i >= 52; i--)
 	{
-		int exponenta = (bits >> i) & 1;
-		cout << exponenta;
+		exponenta_memory *= 2;
+		exponenta_memory += (bits >> i) & 1;
 	}
+	cout << exponenta_memory;
 	cout << endl;
 	
-	cout << "\nМантисса: ";
+	uint64_t mantissa = 0;
+	cout << "\nМантисса (в десятичной системе): ";
 	for (int i = 51; i >= 0; i--)
 	{
-		int mantissa = (bits >> i) & 1;
-		cout << mantissa;
+		mantissa *= 2;
+		mantissa += (bits >> i) & 1;
 	}
+	cout << mantissa;
 	cout << endl;
 	
 }
@@ -62,7 +65,6 @@ int main()
 	print_bit_doubles(res_2);
 	cout << endl;*/
 	
-	//for (int i = 1; i <= pow(10.0,n); i++)
 	int i_1 = 1;
 	while(true)
 	{
@@ -79,8 +81,7 @@ int main()
 		cout << endl;
 		i_1++;
 	}
-	cout << "-----------------------------\n";
-	//for (int i = 1; i <= pow(2.0,k); i++)
+	cout << "------------------------------------------------------------\n";
 	int i_2 = 1;
 	while(true)
 	{
